@@ -237,7 +237,7 @@ const PlaceOrder = () => {
                     <Title text1={'PAYMENT'} text2={'METHOD'} />
                     {/* --------------- Payment Method Selection ------------- */}
                     <div className='flex gap-3 flex-col lg:flex-row mt-4'>
-                        <div 
+                        {/* <div 
                             onClick={() => setMethod('stripe')} 
                             className={`flex items-center gap-3 border rounded-lg p-3 px-4 cursor-pointer transition-all ${method === 'stripe' ? 'border-purple-500 bg-gradient-to-r from-purple-50 to-indigo-50 shadow-sm' : 'hover:border-gray-400'}`}
                         >
@@ -250,7 +250,7 @@ const PlaceOrder = () => {
                         >
                             <div className={`w-4 h-4 rounded-full border-2 transition-all ${method === 'razorpay' ? 'border-purple-500 bg-purple-500' : 'border-gray-400'}`}></div>
                             <img className='h-5 mx-4' src={assets.razorpay_logo} alt="Razorpay" />
-                        </div>
+                        </div> */}
                         <div 
                             onClick={() => setMethod('cod')} 
                             className={`flex items-center gap-3 border rounded-lg p-3 px-4 cursor-pointer transition-all ${method === 'cod' ? 'border-purple-500 bg-gradient-to-r from-purple-50 to-indigo-50 shadow-sm' : 'hover:border-gray-400'}`}

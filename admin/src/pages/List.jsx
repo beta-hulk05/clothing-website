@@ -2,9 +2,11 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom' // Import useNavigate
 
 const List = ({ token }) => {
 
+  const navigate = useNavigate(); // Initialize useNavigate
   const [list, setList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -81,11 +83,12 @@ const List = ({ token }) => {
       ) : (
         <div>
           {/* Table Header */}
-          <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-3 px-4 border-b bg-gray-50 rounded-t-lg text-sm font-medium text-gray-600'>
+          <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] items-center py-3 px-4 border-b bg-gray-50 rounded-t-lg text-sm font-medium text-gray-600'> {/* Added column for Edit */}
             <p>Image</p>
             <p>Product Name</p>
             <p>Category</p>
             <p>Price</p>
+            <p className='text-center'>Edit</p> {/* Edit Header */}
             <p className='text-center'>Action</p>
           </div>
 
@@ -98,7 +101,7 @@ const List = ({ token }) => {
             ) : (
               filteredList.map((item, index) => (
                 <div 
-                  className='grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-4 py-4 px-4 border-b hover:bg-gray-50 transition-colors' 
+                  className='grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] items-center gap-4 py-4 px-4 border-b hover:bg-gray-50 transition-colors' // Adjusted grid columns
                   key={index}
                 >
                   <img className='w-16 h-16 object-cover rounded-md shadow-sm' src={item.image[0]} alt="" />
@@ -108,6 +111,17 @@ const List = ({ token }) => {
                   </div>
                   <p className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 w-fit">{item.category}</p>
                   <p className="font-semibold text-gray-700">{currency}{item.price}</p>
+                  {/* Edit Button */}
+                  <button
+                    onClick={() => navigate('/add', { state: { product: item } })} // Navigate to Add page with product data
+                    className='ml-auto md:mx-auto px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-md transition-colors flex items-center gap-1'
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span className="hidden sm:inline">Edit</span>
+                  </button>
+                  {/* Remove Button */}
                   <button 
                     onClick={()=>removeProduct(item._id)} 
                     className='ml-auto md:mx-auto px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-600 rounded-md transition-colors flex items-center gap-1'

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
@@ -7,11 +7,19 @@ import RelatedProducts from '../components/RelatedProducts';
 const Product = () => {
 
   const { productId } = useParams();
-  const { products, currency ,addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('')
-  const [size,setSize] = useState('')
+  const [size, setSize] = useState('')
   const [added, setAdded] = useState(false)
+  
+  // Refs for image zoom functionality
+  const imageContainerRef = useRef(null);
+  const zoomLensRef = useRef(null);
+  const zoomedImageRef = useRef(null);
+  
+  // State for zoom lens visibility
+  const [isZooming, setIsZooming] = useState(false);
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -30,10 +38,55 @@ const Product = () => {
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
+  
+  // Image zoom functionality
+  const handleImageZoom = (e) => {
+    if (!imageContainerRef.current || !zoomLensRef.current || !zoomedImageRef.current) return;
+    
+    const container = imageContainerRef.current;
+    const lens = zoomLensRef.current;
+    const zoomedImg = zoomedImageRef.current;
+    
+    // Get position of image container
+    const { left: imgX, top: imgY, width: imgWidth, height: imgHeight } = 
+      container.getBoundingClientRect();
+    
+    // Calculate cursor position relative to the image
+    const x = e.clientX - imgX;
+    const y = e.clientY - imgY;
+    
+    // Lens dimensions (you can adjust these)
+    const lensWidth = 100;
+    const lensHeight = 100;
+    
+    // Make sure the lens doesn't go outside the image
+    let lensLeft = x - lensWidth / 2;
+    let lensTop = y - lensHeight / 2;
+    
+    // Constraint lens position
+    if (lensLeft < 0) lensLeft = 0;
+    if (lensTop < 0) lensTop = 0;
+    if (lensLeft > imgWidth - lensWidth) lensLeft = imgWidth - lensWidth;
+    if (lensTop > imgHeight - lensHeight) lensTop = imgHeight - lensHeight;
+    
+    // Position the lens
+    lens.style.left = `${lensLeft}px`;
+    lens.style.top = `${lensTop}px`;
+    lens.style.width = `${lensWidth}px`;
+    lens.style.height = `${lensHeight}px`;
+    
+    // Calculate zoom ratio (3x zoom)
+    const ratio = 3;
+    
+    // Position the zoomed image
+    zoomedImg.style.backgroundImage = `url(${image})`;
+    zoomedImg.style.backgroundSize = `${imgWidth * ratio}px ${imgHeight * ratio}px`;
+    zoomedImg.style.backgroundPosition = `-${lensLeft * ratio}px -${lensTop * ratio}px`;
+  };
 
   useEffect(() => {
     fetchProductData();
-  }, [productId,products])
+  }, [productId, products]);
 
   return productData ? (
     <div className='border-t-2 pt-10 transition-all duration-500 opacity-100'>
@@ -42,21 +95,56 @@ const Product = () => {
 
         {/*---------- Product Images------------- */}
         <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
-          <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-auto hide-scrollbar justify-between sm:justify-normal sm:w-[18.7%] w-full'>
+          {/* Thumbnails */}
+          <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-auto hide-scrollbar gap-1 sm:gap-3 justify-start sm:justify-normal sm:w-[18.7%] w-full p-1 sm:p-2'>
               {
-                productData.image.map((item,index)=>(
-                  <img 
-                    onClick={()=>setImage(item)} 
-                    src={item} 
-                    key={index} 
-                    className={`w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer rounded-md hover:shadow-md transition-all ${image === item ? 'ring-2 ring-purple-400 shadow-md' : ''}`} 
-                    alt="" 
-                  />
+                productData.image.map((item, index) => (
+                  <div 
+                    key={index}
+                    className={`relative overflow-hidden rounded-md transition-all duration-300 flex-shrink-0`}
+                  >
+                    <img 
+                      onClick={() => setImage(item)} 
+                      src={item}
+                      className={`w-20 h-20 sm:w-full sm:h-auto object-cover cursor-pointer rounded-md hover:shadow-md transition-all ${image !== item && 'filter blur-[1px]'}`} 
+                      alt={`Product view ${index + 1}`}
+                    />
+                  </div>
                 ))
               }
           </div>
-          <div className='w-full sm:w-[80%]'>
-              <img className='w-full h-auto rounded-lg shadow-sm hover:shadow-md transition-all' src={image} alt="" />
+          
+          {/* Main Image with Zoom */}
+          <div className='w-full sm:w-[80%] relative'>
+            <div 
+              ref={imageContainerRef}
+              className='relative rounded-lg overflow-hidden'
+              onMouseEnter={() => setIsZooming(true)}
+              onMouseLeave={() => setIsZooming(false)}
+              onMouseMove={handleImageZoom}
+            >
+              <img 
+                className='w-full h-auto rounded-lg shadow-sm hover:shadow-md transition-all object-cover' 
+                src={image} 
+                alt={productData.name} 
+              />
+              
+              {/* Zoom lens overlay (only visible when hovering) */}
+              {isZooming && (
+                <div 
+                  ref={zoomLensRef}
+                  className="absolute border-2 border-purple-400 bg-white bg-opacity-20 pointer-events-none"
+                ></div>
+              )}
+            </div>
+            
+            {/* Restored original position of zoomed image container */}
+            {isZooming && (
+              <div 
+                ref={zoomedImageRef}
+                className="hidden md:block absolute top-0 right-0 transform translate-x-[105%] w-[300px] h-[300px] border-2 border-gray-200 rounded-lg shadow-lg bg-no-repeat"
+              ></div>
+            )}
           </div>
         </div>
 

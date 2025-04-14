@@ -89,24 +89,24 @@ const Product = () => {
   }, [productId, products]);
 
   return productData ? (
-    <div className='border-t-2 pt-10 transition-all duration-500 opacity-100'>
+    <div className='border-t-2 pt-10 transition-all duration-500 opacity-100 pb-10'>
       {/*----------- Product Data-------------- */}
-      <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
+      <div className='flex gap-12 sm:gap-16 flex-col sm:flex-row max-w-7xl mx-auto px-4'>
 
         {/*---------- Product Images------------- */}
         <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
           {/* Thumbnails */}
-          <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-auto hide-scrollbar gap-1 sm:gap-3 justify-start sm:justify-normal sm:w-[18.7%] w-full p-1 sm:p-2'>
+          <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-auto hide-scrollbar gap-2 sm:gap-3 justify-start sm:justify-normal sm:w-[15%] w-full p-1 sm:p-2'>
               {
                 productData.image.map((item, index) => (
                   <div 
                     key={index}
-                    className={`relative overflow-hidden rounded-md transition-all duration-300 flex-shrink-0`}
+                    className={`relative overflow-hidden rounded-xl transition-all duration-300 flex-shrink-0 ${image === item ? 'ring-2 ring-purple-500' : ''}`}
                   >
                     <img 
                       onClick={() => setImage(item)} 
                       src={item}
-                      className={`w-20 h-20 sm:w-full sm:h-auto object-cover cursor-pointer rounded-md hover:shadow-md transition-all ${image !== item && 'filter blur-[1px]'}`} 
+                      className={`w-20 h-20 sm:w-full sm:h-auto object-cover cursor-pointer rounded-xl hover:shadow-md transition-all ${image !== item && 'filter opacity-70'}`} 
                       alt={`Product view ${index + 1}`}
                     />
                   </div>
@@ -115,16 +115,16 @@ const Product = () => {
           </div>
           
           {/* Main Image with Zoom */}
-          <div className='w-full sm:w-[80%] relative'>
+          <div className='w-full sm:w-[85%] relative'>
             <div 
               ref={imageContainerRef}
-              className='relative rounded-lg overflow-hidden'
+              className='relative rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100'
               onMouseEnter={() => setIsZooming(true)}
               onMouseLeave={() => setIsZooming(false)}
               onMouseMove={handleImageZoom}
             >
               <img 
-                className='w-full h-auto rounded-lg shadow-sm hover:shadow-md transition-all object-cover' 
+                className='w-full h-auto rounded-2xl transition-all object-cover' 
                 src={image} 
                 alt={productData.name} 
               />
@@ -138,95 +138,185 @@ const Product = () => {
               )}
             </div>
             
-            {/* Restored original position of zoomed image container */}
+            {/* Zoomed image container */}
             {isZooming && (
               <div 
                 ref={zoomedImageRef}
-                className="hidden md:block absolute top-0 right-0 transform translate-x-[105%] w-[300px] h-[300px] border-2 border-gray-200 rounded-lg shadow-lg bg-no-repeat"
+                className="hidden md:block absolute top-0 right-0 transform translate-x-[105%] w-[350px] h-[350px] border border-gray-100 rounded-2xl shadow-lg bg-no-repeat"
               ></div>
             )}
+
+            <div className="hidden sm:flex justify-center mt-4 gap-4 text-xs text-gray-500">
+              <div className="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Hover to zoom</span>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* -------- Product Info ---------- */}
-        <div className='flex-1'>
-          <h1 className='font-semibold text-2xl md:text-3xl mt-2 text-gray-800'>{productData.name}</h1>
-          <p className='mt-5 text-3xl font-medium text-gray-800'>{currency}{productData.price}</p>
-          <p className='mt-5 text-gray-600 md:w-4/5 leading-relaxed'>{productData.description}</p>
-          <div className='flex flex-col gap-4 my-8'>
-              <p className="font-medium text-gray-800">Select Size</p>
-              <div className='flex gap-3'>
-                {productData.sizes.map((item,index)=>(
-                  <button 
-                    onClick={()=>setSize(item)} 
-                    className={`border py-2 px-4 rounded-md transition-all ${item === size 
-                      ? 'border-purple-500 bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-700 shadow-sm' 
-                      : 'bg-gray-50 hover:bg-gray-100'}`} 
-                    key={index}
-                  >
-                    {item}
-                  </button>
+        <div className='flex-1 flex flex-col'>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-700">
+                {productData.category}
+              </span>
+              <span className="px-2 py-1 text-xs font-medium rounded-full bg-indigo-100 text-indigo-700">
+                {productData.subCategory}
+              </span>
+            </div>
+            
+            <h1 className='font-semibold text-2xl md:text-3xl text-gray-800'>{productData.name}</h1>
+            
+            <div className="flex items-center gap-2 mt-2">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map(star => (
+                  <svg key={star} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
                 ))}
               </div>
+              <span className="text-sm text-gray-500">142 Reviews</span>
+            </div>
           </div>
-          <button 
-            onClick={()=>handleAddToCart(productData._id, size)} 
-            disabled={!size || added}
-            className={`bg-gradient-to-r ${added ? 'from-green-600 to-emerald-600' : 'from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} text-white px-8 py-3 rounded-md text-sm active:scale-95 transform transition-all duration-200 shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2`}
-          >
-            {added ? (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                ADDED TO CART
-              </>
-            ) : (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                ADD TO CART
-              </>
-            )}
-          </button>
-          <hr className='mt-8 sm:w-4/5' />
-          <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <p>100% Original product.</p>
+
+          <div className="mt-6 mb-4">
+            <div className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+              {currency}{productData.price}
+              <span className="text-sm font-normal text-gray-500 line-through">{currency}{Math.round(productData.price * 1.2)}</span>
+              <span className="text-sm font-medium text-green-600">20% off</span>
+            </div>
+            <p className="text-sm text-green-600 mt-1">Inclusive of all taxes</p>
+          </div>
+
+          <div className='flex flex-col gap-5 my-6'>
+              <div>
+                <p className="font-medium text-gray-800 mb-3">Select Size</p>
+                <div className='flex gap-3'>
+                  {productData.sizes.map((item,index)=>(
+                    <button 
+                      onClick={()=>setSize(item)} 
+                      className={`border-2 h-10 w-10 flex items-center justify-center rounded-full transition-all ${item === size 
+                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-sm font-medium' 
+                        : 'border-gray-200 hover:border-gray-300'}`} 
+                      key={index}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <p>Cash on delivery is available on this product.</p>
+
+              <div className="flex flex-col gap-2">
+                <div className='w-full max-w-xs mt-2'>
+                  <button 
+                    onClick={()=>handleAddToCart(productData._id, size)} 
+                    disabled={!size || added}
+                    className={`w-full bg-gradient-to-r ${added ? 'from-green-600 to-emerald-600' : 'from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} text-white px-8 py-4 rounded-xl text-sm active:scale-[0.98] transform transition-all duration-200 shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-medium`}
+                  >
+                    {added ? (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        ADDED TO CART
+                      </>
+                    ) : (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        ADD TO CART
+                      </>
+                    )}
+                  </button>
+                </div>
+                {!size && <p className="text-xs text-red-500">Please select a size</p>}
               </div>
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <p>Easy return and exchange policy within 7 days.</p>
+          </div>
+          
+          <hr className='my-6' />
+          
+          <div className='text-sm text-gray-500 flex flex-col gap-3'>
+              <h3 className="font-medium text-gray-800 mb-1">Product Details</h3>
+              
+              <div className="flex items-start gap-3 bg-gray-50 p-3 rounded-xl">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-800">100% Original Products</p>
+                  <p className="text-xs text-gray-500 mt-0.5">All products are sourced directly from brand or authorized channels</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-gray-50 p-3 rounded-xl">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-800">Cash on Delivery Available</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Pay when you receive your order at your doorstep</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-gray-50 p-3 rounded-xl">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-800">Flat ₹39 Delivery Fee</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Affordable delivery charges on all orders</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-gray-50 p-3 rounded-xl">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-800">Easy 7-Day Exchange Policy</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Change sizes or products with ease within 7 days</p>
+                </div>
               </div>
           </div>
         </div>
       </div>
 
-      {/* ---------- Description & Review Section ------------- */}
-      <div className='mt-20'>
-        <div className='flex rounded-t-lg overflow-hidden'>
-          <div className='border-b-2 border-purple-600 px-5 py-3 text-sm font-medium text-purple-800 bg-gradient-to-r from-purple-50 to-indigo-50'>Description</div>
+      {/* ---------- Description Section ------------- */}
+      <div className='mt-20 max-w-7xl mx-auto px-4'>
+        <div className='flex rounded-t-xl overflow-hidden'>
+          <div className='border-b-2 border-purple-600 px-6 py-3 text-base font-medium text-purple-800 bg-gradient-to-r from-purple-50 to-indigo-50'>Product Description</div>
         </div>
-        <div className='flex flex-col gap-4 border rounded-b-lg px-6 py-6 text-sm text-gray-600 bg-white'>
-          <p>An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical presence. E-commerce websites have gained immense popularity due to their convenience, accessibility, and the global reach they offer.</p>
-          <p>E-commerce websites typically display products or services along with detailed descriptions, images, prices, and any available variations (e.g., sizes, colors). Each product usually has its own dedicated page with relevant information.</p>
+        <div className='flex flex-col gap-4 border rounded-b-xl px-8 py-8 text-gray-600 bg-white'>
+          <div className="space-y-4">
+            {productData.description.split('\n').filter(point => point.trim() !== '').map((point, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <div className="p-1.5 bg-purple-100 rounded-full mt-0.5">
+                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                </div>
+                <p className="text-base">{point}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* --------- display related products ---------- */}
-      <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
+      {/* --------- Related Products Section ---------- */}
+      <div className="mt-20 max-w-7xl mx-auto px-4">
+        <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
+      </div>
 
     </div>
   ) : <div className='flex justify-center items-center h-80'>

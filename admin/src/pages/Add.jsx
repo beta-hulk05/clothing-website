@@ -218,17 +218,30 @@ const Add = ({token}) => {
             />
           </div>
 
-          {/* ... existing code for description textarea ... */}
-           <div className='w-full'>
+          {/* ...existing code...*/}
+          <div className='w-full'>
             <p className='mb-2 font-medium text-gray-700'>Product Description</p>
+            <p className='text-xs text-gray-500 mb-2'>Enter each feature point on a new line. Each line will be displayed as a separate bullet point.</p>
             <textarea
               onChange={(e)=>setDescription(e.target.value)}
               value={description}
-              className='w-full max-w-[600px] px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all outline-none min-h-[100px]'
-              placeholder='Write product description here'
+              className='w-full max-w-[600px] px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all outline-none min-h-[150px]'
+              placeholder='Feature point 1&#10;Feature point 2&#10;Feature point 3'
               required
             ></textarea>
+            
+            {description && (
+              <div className="mt-3 p-3 bg-gray-50 rounded-lg max-w-[600px]">
+                <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {description.split('\n').filter(point => point.trim() !== '').map((point, index) => (
+                    <li key={index} className="text-sm text-gray-600">{point}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
+          {/* ...existing code... */}
 
           <div className='flex flex-col sm:flex-row gap-6 w-full'>
               <div className="w-full sm:w-1/3">

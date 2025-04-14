@@ -63,16 +63,6 @@ const Product = () => {
         {/* -------- Product Info ---------- */}
         <div className='flex-1'>
           <h1 className='font-semibold text-2xl md:text-3xl mt-2 text-gray-800'>{productData.name}</h1>
-          <div className='flex items-center gap-1 mt-2'>
-              <div className="flex">
-                <img src={assets.star_icon} alt="" className="w-4 h-4" />
-                <img src={assets.star_icon} alt="" className="w-4 h-4" />
-                <img src={assets.star_icon} alt="" className="w-4 h-4" />
-                <img src={assets.star_icon} alt="" className="w-4 h-4" />
-                <img src={assets.star_dull_icon} alt="" className="w-4 h-4" />
-              </div>
-              <p className='pl-2 text-sm text-gray-600'>(122 Reviews)</p>
-          </div>
           <p className='mt-5 text-3xl font-medium text-gray-800'>{currency}{productData.price}</p>
           <p className='mt-5 text-gray-600 md:w-4/5 leading-relaxed'>{productData.description}</p>
           <div className='flex flex-col gap-4 my-8'>

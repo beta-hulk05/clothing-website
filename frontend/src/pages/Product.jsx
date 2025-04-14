@@ -130,7 +130,6 @@ const Product = () => {
       <div className='mt-20'>
         <div className='flex rounded-t-lg overflow-hidden'>
           <div className='border-b-2 border-purple-600 px-5 py-3 text-sm font-medium text-purple-800 bg-gradient-to-r from-purple-50 to-indigo-50'>Description</div>
-          <div className='border px-5 py-3 text-sm text-gray-600 bg-white hover:bg-gray-50 transition-colors cursor-pointer'>Reviews (122)</div>
         </div>
         <div className='flex flex-col gap-4 border rounded-b-lg px-6 py-6 text-sm text-gray-600 bg-white'>
           <p>An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical presence. E-commerce websites have gained immense popularity due to their convenience, accessibility, and the global reach they offer.</p>

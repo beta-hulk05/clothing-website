@@ -187,7 +187,7 @@ const Add = ({token}) => {
               </div>
 
               <div className="w-full sm:w-1/3">
-                <p className='mb-2 font-medium text-gray-700'>Price (₹)</p>
+                <p className='mb-2 font-medium text-gray-700'>Price</p>
                 <input 
                   onChange={(e) => setPrice(e.target.value)} 
                   value={price} 

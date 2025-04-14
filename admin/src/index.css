@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    @apply bg-gray-50;
+}
+
+select, input, textarea {
+    @apply transition-all duration-200;
+    border: 1px solid #e2e8f0;
+    outline-color: #8b5cf6;
+    border-radius: 0.5rem;
+}
+
+select:focus, input:focus, textarea:focus {
+    @apply border-purple-500 ring-2 ring-purple-100;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 hover:bg-gray-400 rounded-full transition-all;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f1f5f9;
+}
+
+.active {
+    @apply text-purple-700 bg-gradient-to-r from-purple-50 to-indigo-50;
+    border-color: #9333ea;
+}

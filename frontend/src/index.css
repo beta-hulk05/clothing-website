@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a.active hr{
+    display: block;
+}
+
+*{
+    font-family: Outfit, sans-serif;
+}
+
+.prata-regular {
+    font-family: "Prata", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    @apply bg-white;
+}
+
+select, input, textarea {
+    @apply transition-all duration-200;
+    outline-color: #8b5cf6;
+}
+
+select:focus, input:focus, textarea:focus {
+    @apply border-purple-500 ring-2 ring-purple-100;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 hover:bg-gray-400 rounded-full transition-all;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f1f5f9;
+}
+  
+@media (max-width:640px) {
+    a.active{
+        background-color: black;
+        color: white;
+    }
+}
+
+.custom-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600;
+}
+
+.custom-gradient-bg {
+    @apply bg-gradient-to-r from-purple-600 to-indigo-600;
+}
+
+.hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+}

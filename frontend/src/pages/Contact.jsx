@@ -110,17 +110,17 @@ const Contact = () => {
                     </svg>
                   </div>
                   <h3 className="font-medium text-gray-800">Our Store</h3>
-                  <p className="text-gray-600 mt-2">54709 Willms Station<br/>Suite 350, Washington, USA</p>
+                  <p className="text-gray-600 mt-2">C-28, Raj nagar, Jaipur road, Bikaner</p>
                 </div>
                 
                 <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-all">
                   <div className="p-3 mb-4 w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-indigo-100">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <h3 className="font-medium text-gray-800">Get in Touch</h3>
-                  <p className="text-gray-600 mt-2">Tel: (415) 555-0132<br/>Email: admin@forever.com</p>
+                  <p className="text-gray-600 mt-2">Email: rnyclothing8@gmail.com</p>
                 </div>
               </div>
             </>

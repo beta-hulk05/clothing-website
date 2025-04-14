@@ -3,7 +3,7 @@ import { ShopContext } from '../context/ShopContext'
 import { useLocation } from 'react-router-dom';
 
 const SearchBar = () => {
-    const { search, setSearch, showSearch, setShowSearch, products } = useContext(ShopContext);
+    const { search, setSearch, showSearch, setShowSearch, products, navigate } = useContext(ShopContext);
     const [visible, setVisible] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
@@ -101,6 +101,12 @@ const SearchBar = () => {
             setIsVoiceActive(false);
         };
     };
+
+    // Handle product selection
+    const handleProductSelect = (productId) => {
+        navigate(`/product/${productId}`);
+        setShowSearch(false);  // Close the search modal
+    };
     
     return showSearch && visible ? (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-start justify-center pt-20 animate-fadeIn">
@@ -147,7 +153,7 @@ const SearchBar = () => {
                                 className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 001.414-1.414L11.414 10l1.293-1.293a1 1 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                                 </svg>
                             </button>
                         )}
@@ -171,7 +177,7 @@ const SearchBar = () => {
                                 <div 
                                     key={product._id} 
                                     className="px-4 py-2 flex items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors"
-                                    onClick={() => navigate(`/product/${product._id}`)}
+                                    onClick={() => handleProductSelect(product._id)}
                                 >
                                     <div className="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
                                         <img 

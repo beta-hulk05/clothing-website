@@ -138,11 +138,16 @@ const Product = () => {
               )}
             </div>
             
-            {/* Zoomed image container */}
+            {/* Zoomed image container - Positioned to the side */}
             {isZooming && (
               <div 
                 ref={zoomedImageRef}
-                className="hidden md:block absolute top-0 right-0 transform translate-x-[105%] w-[350px] h-[350px] border border-gray-100 rounded-2xl shadow-lg bg-no-repeat"
+                className="hidden md:block fixed z-50 w-[400px] h-[400px] border border-gray-200 rounded-2xl shadow-xl bg-no-repeat bg-white"
+                style={{
+                  top: '50vh',
+                  right: '5%',
+                  transform: 'translateY(-50%)'
+                }}
               ></div>
             )}
 

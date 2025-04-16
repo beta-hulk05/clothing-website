@@ -10,7 +10,7 @@ const Footer = () => {
         <div>
             <img src={assets.logo} className='mb-5 w-32' alt="Forever" />
             <p className='w-full md:w-2/3 text-gray-600 leading-relaxed'>
-              An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions.
+            RNY Clothing crafts premium oversized tees and streetwear, designed for bold, effortless style. Made with high-quality fabrics, our pieces blend comfort with urban edge. Wear confidence—loose, layered, and unapologetically you.
             </p>
             <div className="flex gap-4 mt-6">
               <Link to="#" className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:shadow-md transition-all">
@@ -35,19 +35,19 @@ const Footer = () => {
             <p className='text-lg font-medium mb-5 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600'>QUICK LINKS</p>
             <ul className='flex flex-col gap-3 text-gray-600'>
                 <li className="hover:text-purple-700 transition-colors">
-                  <Link to="/" className="hover:text-purple-700 transition-colors">Home</Link>
+                  <Link to="/" preventScrollReset={true} className="hover:text-purple-700 transition-colors">Home</Link>
                 </li>
                 <li className="hover:text-purple-700 transition-colors">
-                  <Link to="/collection" className="hover:text-purple-700 transition-colors">Collection</Link>
+                  <Link to="/collection" preventScrollReset={true} className="hover:text-purple-700 transition-colors">Collection</Link>
                 </li>
                 <li className="hover:text-purple-700 transition-colors">
-                  <Link to="/about" className="hover:text-purple-700 transition-colors">About Us</Link>
+                  <Link to="/about" preventScrollReset={true} className="hover:text-purple-700 transition-colors">About Us</Link>
                 </li>
                 <li className="hover:text-purple-700 transition-colors">
-                  <Link to="/contact" className="hover:text-purple-700 transition-colors">Contact Us</Link>
+                  <Link to="/contact" preventScrollReset={true} className="hover:text-purple-700 transition-colors">Contact Us</Link>
                 </li>
                 <li className="hover:text-purple-700 transition-colors">
-                  <Link to="/cart" className="hover:text-purple-700 transition-colors">Cart</Link>
+                  <Link to="/cart" preventScrollReset={true} className="hover:text-purple-700 transition-colors">Cart</Link>
                 </li>
             </ul>
         </div>

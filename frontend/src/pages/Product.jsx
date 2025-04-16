@@ -6,6 +6,9 @@ import RelatedProducts from '../components/RelatedProducts';
 
 const Product = () => {
 
+  // Standard sizes that will be displayed for all products
+  const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
@@ -87,6 +90,64 @@ const Product = () => {
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
+
+  // Check if a size is in stock
+  const isSizeInStock = (sizeToCheck) => {
+    return productData && productData.sizes.includes(sizeToCheck);
+  };
+
+  // Set size only if it's in stock
+  const handleSizeSelect = (selectedSize) => {
+    if (isSizeInStock(selectedSize)) {
+      setSize(selectedSize);
+    }
+  };
+
+  // Function to render stars based on rating
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const partialStar = rating % 1;
+    
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <svg key={`full-${i}`} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      );
+    }
+    
+    // Add partial star if needed
+    if (partialStar > 0) {
+      stars.push(
+        <div key="partial" className="relative">
+          {/* Gray background star */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          
+          {/* Yellow overlay for partial fill */}
+          <div className="absolute inset-0 overflow-hidden" style={{ width: `${partialStar * 100}%` }}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </div>
+        </div>
+      );
+    }
+    
+    // Add empty stars
+    for (let i = Math.ceil(rating); i < 5; i++) {
+      stars.push(
+        <svg key={`empty-${i}`} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      );
+    }
+    
+    return stars;
+  };
 
   return productData ? (
     <div className='border-t-2 pt-10 transition-all duration-500 opacity-100 pb-10'>
@@ -178,13 +239,9 @@ const Product = () => {
             
             <div className="flex items-center gap-2 mt-2">
               <div className="flex">
-                {[1, 2, 3, 4, 5].map(star => (
-                  <svg key={star} xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+                {renderStars(4.2)}
               </div>
-              <span className="text-sm text-gray-500">142 Reviews</span>
+              <span className="text-xs font-medium text-gray-500">4.2</span>
             </div>
           </div>
 
@@ -200,27 +257,49 @@ const Product = () => {
           <div className='flex flex-col gap-5 my-6'>
               <div>
                 <p className="font-medium text-gray-800 mb-3">Select Size</p>
-                <div className='flex gap-3'>
-                  {productData.sizes.map((item,index)=>(
-                    <button 
-                      onClick={()=>setSize(item)} 
-                      className={`border-2 h-10 w-10 flex items-center justify-center rounded-full transition-all ${item === size 
-                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-sm font-medium' 
-                        : 'border-gray-200 hover:border-gray-300'}`} 
-                      key={index}
-                    >
-                      {item}
-                    </button>
-                  ))}
+                <div className='flex gap-3 flex-wrap'>
+                  {ALL_SIZES.map((item, index) => {
+                    const inStock = isSizeInStock(item);
+                    return (
+                      <button 
+                        onClick={() => inStock ? handleSizeSelect(item) : null} 
+                        disabled={!inStock}
+                        className={`relative border-2 h-10 w-10 flex items-center justify-center rounded-full transition-all 
+                          ${item === size ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-sm font-medium' : 
+                            inStock ? 'border-gray-200 hover:border-gray-300' : 
+                            'border-gray-200 text-gray-400 cursor-not-allowed opacity-70'}`} 
+                        key={index}
+                      >
+                        {item}
+                        {!inStock && (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-full h-[1.5px] bg-gray-400 rotate-45 transform origin-center"></div>
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
+                {size === '' && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    {productData.sizes.length > 0 
+                      ? "Please select a size" 
+                      : "All sizes are currently out of stock"}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
                 <div className='w-full max-w-xs mt-2'>
                   <button 
                     onClick={()=>handleAddToCart(productData._id, size)} 
-                    disabled={!size || added}
-                    className={`w-full bg-gradient-to-r ${added ? 'from-green-600 to-emerald-600' : 'from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} text-white px-8 py-4 rounded-xl text-sm active:scale-[0.98] transform transition-all duration-200 shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-medium`}
+                    disabled={!size || added || productData.sizes.length === 0}
+                    className={`w-full bg-gradient-to-r 
+                      ${added ? 'from-green-600 to-emerald-600' : 
+                        productData.sizes.length === 0 ? 'from-gray-400 to-gray-500' : 
+                        'from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} 
+                      text-white px-8 py-4 rounded-xl text-sm active:scale-[0.98] transform transition-all duration-200 
+                      shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-medium`}
                   >
                     {added ? (
                       <>
@@ -229,6 +308,8 @@ const Product = () => {
                         </svg>
                         ADDED TO CART
                       </>
+                    ) : productData.sizes.length === 0 ? (
+                      "OUT OF STOCK"
                     ) : (
                       <>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -239,7 +320,7 @@ const Product = () => {
                     )}
                   </button>
                 </div>
-                {!size && <p className="text-xs text-red-500">Please select a size</p>}
+                {size === '' && productData.sizes.length > 0 && <p className="text-xs text-red-500">Please select a size</p>}
               </div>
           </div>
           

@@ -39,14 +39,14 @@ const BestSeller = () => {
             ))}
           </div>
           
-          <div className="flex justify-center mt-10">
+          {/* <div className="flex justify-center mt-10">
             <button 
               onClick={() => navigate('/collection')} 
               className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-2.5 rounded-lg shadow-sm hover:shadow transition-all text-sm font-medium"
             >
               View All Products
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </div>

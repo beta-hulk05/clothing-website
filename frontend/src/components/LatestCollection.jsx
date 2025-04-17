@@ -38,7 +38,7 @@ const LatestCollection = () => {
         </div>
       )}
 
-      <div className="flex justify-center mt-10">
+      {/* <div className="flex justify-center mt-10">
         <button 
           onClick={() => navigate('/collection')} 
           className="border border-gray-300 hover:border-purple-500 text-gray-700 hover:text-purple-700 px-8 py-2.5 rounded-lg transition-all text-sm font-medium flex items-center gap-2"
@@ -48,7 +48,7 @@ const LatestCollection = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

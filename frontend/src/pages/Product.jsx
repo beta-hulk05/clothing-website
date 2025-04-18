@@ -247,9 +247,9 @@ const Product = () => {
 
           <div className="mt-6 mb-4">
             <div className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-              {currency}{productData.price}
-              <span className="text-sm font-normal text-gray-500 line-through">{currency}{Math.round(productData.price * 1.2)}</span>
-              <span className="text-sm font-medium text-green-600">20% off</span>
+             {currency}{599}
+              <span className="text-sm font-normal text-gray-500 line-through">{currency}{999}</span>
+              <span className="text-sm font-medium text-green-600">40% off</span>
             </div>
             <p className="text-sm text-green-600 mt-1">Inclusive of all taxes</p>
           </div>

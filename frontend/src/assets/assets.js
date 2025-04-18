@@ -57,6 +57,7 @@ import p_img52 from './p_img52.png'
 
 import logo from './logo.png'
 import hero_img from './hero_img.png'
+import hero_video from './hero_video.mp4'  // Add this line to import the video
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
@@ -75,10 +76,12 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import rny from './rny.jpg'
 
+
 export const assets = {
     logo,
     rny,
     hero_img,
+    hero_video,  // Add this line to include the video in the assets object
     cart_icon,
     dropdown_icon,
     exchange_icon,

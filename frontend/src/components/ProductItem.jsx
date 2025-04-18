@@ -22,7 +22,11 @@ const ProductItem = ({id,image,name,price}) => {
         </div>
         <div className="px-3 py-3">
           <p className='text-sm font-medium line-clamp-1'>{name}</p>
-          <p className='text-sm font-semibold text-purple-700 mt-1'>{currency}{price}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <p className='text-sm font-semibold text-purple-700'>{currency}{price}</p>
+            <p className='text-xs text-gray-500 line-through'>{currency}999</p>
+            <p className='text-xs font-medium text-green-600'>40% off</p>
+          </div>
         </div>
       </div>
     </Link>

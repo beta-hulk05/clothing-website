@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
+import ReviewSection from '../components/ReviewSection';
 
 const Product = () => {
 
@@ -236,15 +237,9 @@ const Product = () => {
             </div>
             
             <h1 className='font-semibold text-2xl md:text-3xl text-gray-800'>{productData.name}</h1>
-            
-            <div className="flex items-center gap-2 mt-2">
-              <div className="flex">
-                {renderStars(4.2)}
-              </div>
-              <span className="text-xs font-medium text-gray-500">4.2</span>
-            </div>
           </div>
 
+          
           <div className="mt-6 mb-4">
             <div className="text-3xl font-bold text-gray-800 flex items-center gap-3">
              {currency}{599}
@@ -399,10 +394,16 @@ const Product = () => {
         </div>
       </div>
 
-      {/* --------- Related Products Section ---------- */}
-      <div className="mt-20 max-w-7xl mx-auto px-4">
-        <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
-      </div>
+      {/* Add ReviewSection after the existing product details */}
+      {productData && <ReviewSection productId={productId} />}
+      
+      {/* Show Related Products */}
+      {productData && (
+        <RelatedProducts
+          category={productData.category}
+          subCategory={productData.subCategory}
+        />
+      )}
 
     </div>
   ) : <div className='flex justify-center items-center h-80'>

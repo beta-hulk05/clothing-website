@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 # Hi there, I'm BHAVAY 👋
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=beta-hulk05&show_icons=true&theme=tokyonight" alt="BHAVAY's GitHub Stats" />
-=======
-# Hi there, I'm Bhavay 👋
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=beta-hulk05&show_icons=true&theme=tokyonight" alt="Bhavay's GitHub Stats" />
->>>>>>> 703d82d4ad89d1c3fbc8fef50eed048f2854b834
 </div>
 
 ## 👨‍💻 About Me
 
-<<<<<<< HEAD
 I'm a Full Stack Developer and a student at Birla Institute of Technology, Mesra. I'm passionate about creating seamless web experiences with clean, maintainable code, focusing on both functionality and design.
 
 I'm also an experienced **freelance web developer**, working with clients globally to build custom solutions that solve real business problems. My freelance work spans e-commerce platforms, business websites, and web applications, delivering high-quality results that exceed client expectations.
@@ -23,14 +15,6 @@ I'm also an experienced **freelance web developer**, working with clients global
 - 👯 I'm looking to collaborate on web development projects
 - 💼 I provide freelance development services specializing in React, Node.js and full-stack solutions
 - 📫 How to reach me: [bhavaybatra50@gmail.com](mailto:bhavaybatra50@gmail.com)
-=======
-I'm a Full Stack Developer passionate about building modern web applications with clean, efficient code. Currently studying at Birla Institute of Technology, I enjoy working on projects that combine beautiful design with powerful functionality.
-
-- 🔭 I'm currently working on a React-based e-commerce platform
-- 🌱 I'm currently learning advanced state management and cloud deployment
-- 👯 I'm looking to collaborate on open source React projects
-- 💬 Ask me about React, Node.js, and modern web development
->>>>>>> 703d82d4ad89d1c3fbc8fef50eed048f2854b834
 
 ## 🚀 Skills
 
@@ -46,7 +30,6 @@ I'm a Full Stack Developer passionate about building modern web applications wit
 
 ## 🛒 Featured Project: RNY Clothing E-commerce Platform
 
-<<<<<<< HEAD
 <div align="center">
   <img src="https://github.com/beta-hulk05/project-screenshots/raw/main/rny-banner.png" alt="RNY Clothing Banner" width="800"/>
 </div>
@@ -110,31 +93,6 @@ RNY Clothing is a full-featured e-commerce platform designed for a clothing bran
 - Mobile app development for iOS and Android
 - Enhanced analytics for better business insights
 
-=======
-A full-featured clothing e-commerce platform with both customer-facing and administrative interfaces.
-
-### Key Features:
-
-- **Modern UI**: Responsive design with Tailwind CSS and custom animations
-- **User Authentication**: Secure login and registration system
-- **Product Management**: Complete CRUD operations for product catalog
-- **Shopping Cart**: Real-time cart updates with persistent storage
-- **Payment Integration**: Seamless checkout with Razorpay integration
-- **Order Management**: Track orders and update status
-- **Reviews System**: Allow customers to leave product reviews
-- **Admin Dashboard**: Manage products, orders, and inventory
-
-### Tech Stack:
-
-- **Frontend**: React, Tailwind CSS, Context API
-- **Backend**: Node.js, Express, MongoDB
-- **Tools**: Vite, Axios, Cloudinary for image management
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=beta-hulk05&layout=compact&theme=tokyonight" alt="Top Languages" />
-</div>
-
->>>>>>> 703d82d4ad89d1c3fbc8fef50eed048f2854b834
 ## 📫 Connect With Me
 
 - **Email**: [btech10549.23@bitmesra.ac.in](mailto:btech10549.23@bitmesra.ac.in)
@@ -143,11 +101,6 @@ A full-featured clothing e-commerce platform with both customer-facing and admin
 ---
 
 <div align="center">
-<<<<<<< HEAD
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=beta-hulk05&layout=compact&theme=tokyonight" alt="Top Languages" />
   <p>Thanks for visiting my profile! Feel free to check out my repositories and don't hesitate to reach out for collaborations.</p>
 </div>
-=======
-  <img src="https://komarev.com/ghpvc/?username=beta-hulk05&color=blueviolet" alt="Profile views" />
-</div>
->>>>>>> 703d82d4ad89d1c3fbc8fef50eed048f2854b834

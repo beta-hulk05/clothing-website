@@ -20,9 +20,8 @@ const App = () => {
     localStorage.setItem('token', token)
   }, [token])
 
-  // Automatically redirect to /orders if the path is /
   if (token && location.pathname === '/') {
-    return <Navigate to="/orders" replace />
+    return <Navigate to="/list" replace />
   }
 
   return (
@@ -52,10 +51,11 @@ const App = () => {
             <main className='flex-1 overflow-y-auto p-6'>
               <div className='max-w-6xl mx-auto'>
                 <Routes>
+                  {/* Remove Dashboard route */}
                   <Route path='/add' element={<Add token={token} />} />
                   <Route path='/list' element={<List token={token} />} />
                   <Route path='/orders' element={<Orders token={token} />} />
-                  <Route path='*' element={<Navigate to="/orders" replace />} />
+                  <Route path='*' element={<Navigate to="/list" replace />} />
                 </Routes>
               </div>
             </main>

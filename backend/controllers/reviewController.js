@@ -73,4 +73,36 @@ const getProductRating = async (req, res) => {
     }
 };
 
-export { addReview, getProductReviews, getProductRating };
+// Delete a review
+const deleteReview = async (req, res) => {
+    try {
+        const { reviewId } = req.body;
+        const userId = req.body.userId;
+        
+        if (!reviewId) {
+            return res.json({ success: false, message: "Review ID is required" });
+        }
+        
+        // Find the review
+        const review = await reviewModel.findById(reviewId);
+        if (!review) {
+            return res.json({ success: false, message: "Review not found" });
+        }
+        
+        // Verify ownership (only the reviewer can delete their review)
+        if (review.userId !== userId) {
+            return res.json({ success: false, message: "Not authorized to delete this review" });
+        }
+        
+        // Delete the review
+        await reviewModel.findByIdAndDelete(reviewId);
+        
+        res.json({ success: true, message: "Review deleted successfully" });
+        
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
+export { addReview, getProductReviews, getProductRating, deleteReview };

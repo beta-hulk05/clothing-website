@@ -24,7 +24,7 @@ const ProductItem = ({id,image,name,price}) => {
           <p className='text-sm font-medium line-clamp-1 group-hover:text-purple-700 transition-colors duration-300'>{name}</p>
           <div className="flex items-center gap-2 mt-1">
             <p className='text-sm font-semibold text-purple-700 group-hover:text-purple-800 transition-colors duration-300'>{currency}{price}</p>
-            <p className='text-xs text-gray-500 line-through group-hover:text-gray-600 transition-colors duration-300'>{currency}999</p>
+            <p className='text-xs text-gray-500 line-through group-hover:text-gray-600 transition-colors duration-300'>{currency}{Math.round(price / 0.6)}</p>
             <p className='text-xs font-medium text-green-600 group-hover:text-green-500 group-hover:scale-110 transition-all duration-300 origin-left'
               style={{transform: 'rotate(-2deg)'}}
             >40% off</p>
